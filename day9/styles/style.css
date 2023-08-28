@@ -1,0 +1,32 @@
+html {
+    text-align: center;
+}
+
+h1 {
+    font-size: 52px;
+    color: rgb(88, 49, 196);
+}
+
+header {
+    text-align: center;
+    padding: 32px;
+}
+
+header img {
+    width: 300px;
+}
+
+body {
+    width: auto;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(244, 234, 255);
+}
+
+ul {
+    list-style: none;
+}
+
+main {
+    width: 700px;
+    margin: auto;
+}
