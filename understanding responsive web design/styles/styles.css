@@ -66,6 +66,20 @@ main h1 {
     list-style: none;
 }
 
+.menu-btn{
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.menu-btn span{
+    width: 100%;
+    height: 3px;
+    background-color: white;
+}
+
 .food-items {
     background-color: rgb(228, 206, 182);
     border-radius: 6px;
