@@ -63,6 +63,10 @@ button:hover {
     border-color: rgb(52, 45, 92);
 }
 
+textarea {
+    resize: none;
+}
+
 .form-control-inline {
     display: flex;
 }
