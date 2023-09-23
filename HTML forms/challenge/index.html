@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/styles.css" />
     <title>Forms Challenge</title>
   </head>
   <body>
@@ -54,7 +55,7 @@
         </section>
         <section>
           <ul>
-            <li>
+            <li class="inline-control">
               <input
                 type="radio"
                 name="reply"
@@ -64,7 +65,7 @@
               />
               <label for="reply-phone">Call me </label>
             </li>
-            <li>
+            <li class="inline-control">
               <input
                 type="radio"
                 name="reply"
@@ -74,7 +75,7 @@
               />
               <label for="reply-email">Email me </label>
             </li>
-            <li>
+            <li class="inline-control">
               <input
                 type="radio"
                 name="reply"
@@ -87,17 +88,19 @@
           </ul>
         </section>
         <section>
-          <input
-            type="checkbox"
-            name="accept-terms"
-            id="accept-terms"
-            required
-          />
-          <label for="accept-terms">Accept terms</label>
+          <li class="inline-control">
+            <input
+              type="checkbox"
+              name="accept-terms"
+              id="accept-terms"
+              required
+            />
+            <label for="accept-terms">Accept terms</label>
+          </li>
         </section>
-        <section>
-          <button type="reset">reset</button>
-          <button type="submit">Submit</button>
+        <section id="form-actions">
+          <button type="reset" class="btn-empty">reset</button>
+          <button type="submit" class="btn-filled">Submit</button>
         </section>
       </form>
     </main>
