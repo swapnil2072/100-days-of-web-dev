@@ -1,14 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Forms Challenge</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>Contact Us</header>
     <main>
-        <form action=""></form>
+      <form action="">
+        <section>
+          <h2>how can we help you?</h2>
+          <ul>
+            <li>
+              <label for="username">your name </label>
+              <input type="text" id="username" name="user-name" />
+            </li>
+            <li>
+              <label for="useremail">Email</label>
+              <input type="email" name="user-email" id="useremail" required />
+            </li>
+            <li>
+              <label for="phone">Phone number</label>
+              <input type="tel" id="phone" name="phone" />
+            </li>
+            <li>
+              <label for="message">Message</label>
+              <textarea
+                name="message"
+                id="message"
+                cols="30"
+                rows="10"
+              ></textarea>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <label for="">how did you find us?</label>
+          <select name="channel" id="channel">
+            <option value="search">Web search</option>
+            <option value="word of mouth ">word of mouth</option>
+            <option value="other">other</option>
+          </select>
+        </section>
+      </form>
     </main>
-</body>
+  </body>
 </html>
