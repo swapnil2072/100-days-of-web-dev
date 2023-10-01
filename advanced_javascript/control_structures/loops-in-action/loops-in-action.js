@@ -14,6 +14,8 @@ function calculateSum() {
 
 calculateSumButtonElement.addEventListener("click", calculateSum);
 
+//highlight anchor elements
+
 const highlightLinksButtonElement = document.querySelector(
   "#highlight-links button",
 );
