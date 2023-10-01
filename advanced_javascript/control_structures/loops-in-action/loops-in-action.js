@@ -4,8 +4,8 @@ function calculateSum() {
   const userNumberInputElement = document.getElementById("user-number");
   const enteredNumber = userNumberInputElement.value;
   let sumUpToNumber = 0;
-  for (let i = 0; i <= enteredNumber; i++) {
-    sumUpToNumber += sumUpToNumber + i;
+  for (let i = 1; i <= enteredNumber; i++) {
+    sumUpToNumber += i;
   }
   const outputResultElement = document.getElementById("calculated-sum");
   outputResultElement.textContent = sumUpToNumber;
@@ -52,3 +52,42 @@ function displayUserData() {
 }
 
 displayUserDataButtonElement.addEventListener("click", displayUserData);
+
+//  no of rool dice
+
+const rollDiceButtonElement = document.querySelector("#statistics button");
+
+function rollDice() {
+  return Math.floor(Math.random() * 6) + 1;
+}
+
+function deriveNumberOfDiceRolls() {
+  const targetNumberInputElement =
+    document.getElementById("user-target-number");
+  const diceRollsListElement = document.getElementById("dice-rolls");
+  const enteredNumber = targetNumberInputElement.value;
+  diceRollsListElement.innerHTML = "";
+
+  let hasRolledTargetNumber = false;
+  let numberOfRolls = 0;
+  while (!hasRolledTargetNumber) {
+    const rolledNumber = rollDice();
+    // if(rolledNumber==enteredNumber){
+    //     hasRolledTargetNumber=true
+    // }
+    numberOfRolls++;
+    const newRollListItemElement = document.createElement("li");
+    const outputText = "Roll" + numberOfRolls + ": " + rolledNumber;
+    newRollListItemElement.textContent = outputText;
+    diceRollsListElement.append(newRollListItemElement);
+    hasRolledTargetNumber = rolledNumber == enteredNumber;
+  }
+  const outputTotalRollsElement = document.getElementById("output-total-rolls");
+  const outputTargetNumberElement = document.getElementById(
+    "output-target-number",
+  );
+  outputTargetNumberElement.textContent = enteredNumber;
+  outputTotalRollsElement.textContent = numberOfRolls;
+}
+
+rollDiceButtonElement.addEventListener("click", deriveNumberOfDiceRolls);
