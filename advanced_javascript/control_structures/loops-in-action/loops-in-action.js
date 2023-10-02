@@ -4,9 +4,11 @@ function calculateSum() {
   const userNumberInputElement = document.getElementById("user-number");
   const enteredNumber = userNumberInputElement.value;
   let sumUpToNumber = 0;
+
   for (let i = 1; i <= enteredNumber; i++) {
     sumUpToNumber += i;
   }
+
   const outputResultElement = document.getElementById("calculated-sum");
   outputResultElement.textContent = sumUpToNumber;
   outputResultElement.style.display = "block";
@@ -66,28 +68,34 @@ function rollDice() {
 function deriveNumberOfDiceRolls() {
   const targetNumberInputElement =
     document.getElementById("user-target-number");
-  const diceRollsListElement = document.getElementById("dice-rolls");
   const enteredNumber = targetNumberInputElement.value;
+
+  const diceRollsListElement = document.getElementById("dice-rolls");
   diceRollsListElement.innerHTML = "";
 
   let hasRolledTargetNumber = false;
   let numberOfRolls = 0;
+
   while (!hasRolledTargetNumber) {
     const rolledNumber = rollDice();
     // if(rolledNumber==enteredNumber){
     //     hasRolledTargetNumber=true
     // }
     numberOfRolls++;
+
     const newRollListItemElement = document.createElement("li");
     const outputText = "Roll" + numberOfRolls + ": " + rolledNumber;
     newRollListItemElement.textContent = outputText;
     diceRollsListElement.append(newRollListItemElement);
+
     hasRolledTargetNumber = rolledNumber == enteredNumber;
   }
+
   const outputTotalRollsElement = document.getElementById("output-total-rolls");
   const outputTargetNumberElement = document.getElementById(
     "output-target-number",
   );
+
   outputTargetNumberElement.textContent = enteredNumber;
   outputTotalRollsElement.textContent = numberOfRolls;
 }
