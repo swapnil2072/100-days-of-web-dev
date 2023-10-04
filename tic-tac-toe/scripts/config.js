@@ -1,4 +1,6 @@
-function openPlayerConfig() {
+function openPlayerConfig(event) {
+  const selectedPlayerId = +event.target.dataset.playerid;
+  editedPlayer = selectedPlayerId;
   playerConfigOverlayElement.style.display = "block";
   backdropElement.style.display = "block";
 }
@@ -21,4 +23,8 @@ function savePlayerConfig(event) {
     errorsOutputElement.textContent = "Please enter valid name.";
     return;
   }
+  const updatedPlayerDataElement = document.getElementById(
+    "player-" + editedPlayer + "-data"
+  );
+  updatedPlayerDataElement.children[1].textContent = enteredPlayername
 }
