@@ -6,10 +6,19 @@ function openPlayerConfig() {
 function closePlayerConfig() {
   playerConfigOverlayElement.style.display = "none";
   backdropElement.style.display = "none";
+  formElement.firstElementChild.classList.remove("error");
+  errorsOutputElement.textContent = "";
 }
 
 function savePlayerConfig(event) {
   event.preventDefault();
   const formData = new FormData(event.target);
-  const enteredPlayername = formData.get("playername");
+  const enteredPlayername = formData.get("playername").trim();
+  //trim is used to remove whitespace which are at the start and end of content
+
+  if (!enteredPlayername) {
+    event.target.firstElementChild.classList.add("error");
+    errorsOutputElement.textContent = "Please enter valid name.";
+    return;
+  }
 }
