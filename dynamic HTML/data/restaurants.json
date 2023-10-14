@@ -1,0 +1,9 @@
+[
+  {
+    "name": "test1",
+    "address": "teststreet,testcity",
+    "cuisine": "italian",
+    "website": "https:test.com",
+    "description": "it's nice"
+  }
+]
