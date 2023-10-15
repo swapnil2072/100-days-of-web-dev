@@ -1,9 +1,1 @@
-[
-  {
-    "name": "test1",
-    "address": "teststreet,testcity",
-    "cuisine": "italian",
-    "website": "https:test.com",
-    "description": "it's nice"
-  }
-]
+[{"name":"test1","address":"teststreet,testcity","cuisine":"italian","website":"https:test.com","description":"it's nice"},{"name":"test2","address":"teststreet ,test2City","cuisine":"Mexican","website":"https:www.test2.com","description":"N.A"}]

@@ -49,8 +49,7 @@ app.post("/recommend", function (req, res) {
 });
 
 app.get("/about", function (req, res) {
-  const htmlFilePath = path.join(__dirname, "views", "about.html");
-  res.sendFile(htmlFilePath);
+  res.render("about");
 });
 
 app.listen(3000);
