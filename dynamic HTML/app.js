@@ -17,12 +17,16 @@ app.get("/", function (req, res) {
 });
 
 app.get("/restaurants", function (req, res) {
-
   const filePath = path.join(__dirname, "data", "restaurants.json");
   const fileData = fs.readFileSync(filePath);
   const storedRestaurants = JSON.parse(fileData);
 
-  res.render("restaurants",{numberOfRestaurants:storedRestaurants.length});
+  //to render restaurants dynamic html page
+  res.render("restaurants", {
+    //passing keys to reataurant ejs placeholders
+    numberOfRestaurants: storedRestaurants.length,
+    restaurants: storedRestaurants,
+  });
 });
 app.get("/confirm", function (req, res) {
   res.render("confirm");
@@ -34,10 +38,11 @@ app.get("/recommend", function (req, res) {
 app.post("/recommend", function (req, res) {
   const restaurant = req.body;
 
+  // to read data from json file
   const filePath = path.join(__dirname, "data", "restaurants.json");
   const fileData = fs.readFileSync(filePath);
   const storedRestaurants = JSON.parse(fileData);
-  
+
   storedRestaurants.push(restaurant);
   fs.writeFileSync(filePath, JSON.stringify(storedRestaurants));
   res.redirect("/confirm");
