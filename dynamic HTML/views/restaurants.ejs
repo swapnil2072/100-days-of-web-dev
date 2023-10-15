@@ -49,12 +49,17 @@
     </aside>
     <main>
       <h1>Recommended restaurants</h1>
+      <!-- using if statement to render conditional content using conditional ejs -->
+      <% if(numberOfRestaurants===0) { %>
+      <p>
+        Unfortunately,we have no restaurant yet - maybe start recommending some?
+      </p>
+      <% } else { %>
       <p>Find your next favorite restaurants with help of our other users!</p>
       <p>We Found <%= numberOfRestaurants %> restaurants</p>
       <ul id="restaurants-list">
-
         <!-- using for loop to render all restaurant which are present in json file  -->
-       
+
         <% for (const restaurant of restaurants) { %>
         <li class="restaurant-item">
           <article>
@@ -70,9 +75,8 @@
           </article>
         </li>
         <% } %>
-
-
       </ul>
+      <% } %>
     </main>
   </body>
 </html>
