@@ -43,7 +43,7 @@ app.get("/restaurants/:id", function (req, res) {
       return res.render("restaurant-detail", { restaurant: restaurant });
     }
   }
-  res.render("404");
+  res.status(404).render("404");
 });
 
 app.get("/confirm", function (req, res) {
@@ -72,12 +72,12 @@ app.get("/about", function (req, res) {
 
 //this middlware will kick in when no other routes handle the requests
 app.use(function (req, res) {
-  res.render("404");
+  res.status(404).render("404");
 });
 // this middleware is used to handle server side errors (500 status code) and
 // error parameter will be populated by express only
 app.use(function (error, req, res, next) {
-  res.render("500");
+  res.status(500).render("500");
 });
 
 app.listen(3000);
