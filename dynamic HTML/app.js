@@ -74,5 +74,10 @@ app.get("/about", function (req, res) {
 app.use(function (req, res) {
   res.render("404");
 });
+// this middleware is used to handle server side errors (500 status code) and
+// error parameter will be populated by express only
+app.use(function (error, req, res, next) {
+  res.render("500");
+});
 
 app.listen(3000);
