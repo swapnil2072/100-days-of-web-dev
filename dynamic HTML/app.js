@@ -1,10 +1,13 @@
+//first write build-in packages require
 const fs = require("fs");
-
 const path = require("path");
 
+//then write third party packages require
 const express = require("express");
-
 const uuid = require("uuid");
+
+//then write user-defined packages require
+const resData = require('./util/restaurant-data')
 
 const app = express();
 
@@ -19,7 +22,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/restaurants", function (req, res) {
-  const storedRestaurants = getStoredRestaurants();
+  const storedRestaurants = resData.getStoredRestaurants();
 
   //to render restaurants dynamic html page
   res.render("restaurants", {
@@ -32,7 +35,7 @@ app.get("/restaurants", function (req, res) {
 app.get("/restaurants/:id", function (req, res) {
   const restaurantId = req.params.id;
 
-  const storedRestaurants = getStoredRestaurants();
+  const storedRestaurants = resData.getStoredRestaurants();
 
   for (const restaurant of storedRestaurants) {
     if (restaurant.id === restaurantId) {
@@ -53,10 +56,10 @@ app.post("/recommend", function (req, res) {
   const restaurant = req.body;
   restaurant.id = uuid.v4();
 
-  const storedRestaurants = getStoredRestaurants();
+  const storedRestaurants = resData.getStoredRestaurants();
 
   storedRestaurants.push(restaurant);
-  storeRestaurants(storedRestaurants);
+  resData.storeRestaurants(storedRestaurants);
   res.redirect("/confirm");
 });
 
