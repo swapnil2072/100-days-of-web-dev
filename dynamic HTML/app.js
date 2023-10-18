@@ -1,13 +1,12 @@
 //first write build-in packages require
-const fs = require("fs");
 const path = require("path");
 
 //then write third party packages require
 const express = require("express");
-const uuid = require("uuid");
 
 //then write user-defined packages require
-const resData = require('./util/restaurant-data')
+const defaultRoutes = require("./routes/default");
+const restaurantsRoutes = require("./routes/restaurants");
 
 const app = express();
 
@@ -17,55 +16,8 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ exteneded: false }));
 
-app.get("/", function (req, res) {
-  res.render("index");
-});
-
-app.get("/restaurants", function (req, res) {
-  const storedRestaurants = resData.getStoredRestaurants();
-
-  //to render restaurants dynamic html page
-  res.render("restaurants", {
-    //passing keys to reataurant ejs placeholders
-    numberOfRestaurants: storedRestaurants.length,
-    restaurants: storedRestaurants,
-  });
-});
-
-app.get("/restaurants/:id", function (req, res) {
-  const restaurantId = req.params.id;
-
-  const storedRestaurants = resData.getStoredRestaurants();
-
-  for (const restaurant of storedRestaurants) {
-    if (restaurant.id === restaurantId) {
-      return res.render("restaurant-detail", { restaurant: restaurant });
-    }
-  }
-  res.status(404).render("404");
-});
-
-app.get("/confirm", function (req, res) {
-  res.render("confirm");
-});
-
-app.get("/recommend", function (req, res) {
-  res.render("recommend");
-});
-app.post("/recommend", function (req, res) {
-  const restaurant = req.body;
-  restaurant.id = uuid.v4();
-
-  const storedRestaurants = resData.getStoredRestaurants();
-
-  storedRestaurants.push(restaurant);
-  resData.storeRestaurants(storedRestaurants);
-  res.redirect("/confirm");
-});
-
-app.get("/about", function (req, res) {
-  res.render("about");
-});
+app.use("/", defaultRoutes);
+app.use("/", restaurantsRoutes);
 
 //this middlware will kick in when no other routes handle the requests
 app.use(function (req, res) {
