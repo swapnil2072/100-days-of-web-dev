@@ -19,9 +19,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/restaurants", function (req, res) {
-  const filePath = path.join(__dirname, "data", "restaurants.json");
-  const fileData = fs.readFileSync(filePath);
-  const storedRestaurants = JSON.parse(fileData);
+  const storedRestaurants = getStoredRestaurants();
 
   //to render restaurants dynamic html page
   res.render("restaurants", {
@@ -34,10 +32,8 @@ app.get("/restaurants", function (req, res) {
 app.get("/restaurants/:id", function (req, res) {
   const restaurantId = req.params.id;
 
-  const filePath = path.join(__dirname, "data", "restaurants.json");
-  const fileData = fs.readFileSync(filePath);
+  const storedRestaurants = getStoredRestaurants();
 
-  const storedRestaurants = JSON.parse(fileData);
   for (const restaurant of storedRestaurants) {
     if (restaurant.id === restaurantId) {
       return res.render("restaurant-detail", { restaurant: restaurant });
@@ -56,13 +52,11 @@ app.get("/recommend", function (req, res) {
 app.post("/recommend", function (req, res) {
   const restaurant = req.body;
   restaurant.id = uuid.v4();
-  // to read data from json file
-  const filePath = path.join(__dirname, "data", "restaurants.json");
-  const fileData = fs.readFileSync(filePath);
-  const storedRestaurants = JSON.parse(fileData);
+
+  const storedRestaurants = getStoredRestaurants();
 
   storedRestaurants.push(restaurant);
-  fs.writeFileSync(filePath, JSON.stringify(storedRestaurants));
+  storeRestaurants(storedRestaurants);
   res.redirect("/confirm");
 });
 
