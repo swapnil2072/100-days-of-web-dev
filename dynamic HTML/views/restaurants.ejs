@@ -17,6 +17,11 @@
       <% } else { %>
       <p>Find your next favorite restaurants with help of our other users!</p>
       <p>We Found <%= numberOfRestaurants %> restaurants</p>
+      <form action="/restaurants" method="GET">
+        <input type="hidden" value="<%= nextOrder  %>" name="order" /><button class="btn">
+          Change order
+        </button>
+      </form>
       <ul id="restaurants-list">
         <!-- using for loop to render all restaurant which are present in json file  -->
 
