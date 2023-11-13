@@ -15,8 +15,7 @@ router.get("/posts", async function (req, res) {
   const posts = await db
     .getDb()
     .collection("posts")
-    .find({})
-    .project({ title: 1, summary: 1, "author.name": 1 })
+    .find({}, { title: 1, summary: 1, "author.name": 1 })
     .toArray();
   res.render("posts-list", { posts: posts });
 });
@@ -50,13 +49,8 @@ router.post("/posts", async function (req, res) {
   res.redirect("/posts");
 });
 
-router.get("/posts/:id", async function (req, res, next) {
-  let postId = req.params.id;
-  try {
-    postId = new ObjectId(postId);
-  } catch (error) {
-    return next(error);
-  }
+router.get("/posts/:id", async function (req, res) {
+  const postId = req.params.id;
   const post = await db
     .getDb()
     .collection("posts")
@@ -74,7 +68,7 @@ router.get("/posts/:id", async function (req, res, next) {
   });
   post.date = post.date.toISOString();
 
-  res.render("post-detail", { post: post });
+  res.render("post-detail", { post: post, comments: null });
 });
 
 router.get("/posts/:id/edit", async function (req, res) {
@@ -118,6 +112,28 @@ router.post("/posts/:id/delete", async function (req, res) {
     .collection("posts")
     .deleteOne({ _id: postId });
   res.redirect("/posts");
+});
+
+router.get("/posts/:id/comments", async function (req, res) {
+  const postId = new ObjectId(req.params.id);
+  const comments = await db
+    .getDb()
+    .collection("comments")
+    .find({ postId: postId })
+    .toArray();
+
+  res.json(comments);
+});
+
+router.post("/posts/:id/comments", async function (req, res) {
+  const postId = new ObjectId(req.params.id);
+  const newComment = {
+    postId: postId,
+    title: req.body.title,
+    text: req.body.text,
+  };
+  await db.getDb().collection("comments").insertOne(newComment);
+  res.redirect("/posts/" + req.params.id);
 });
 
 module.exports = router;
