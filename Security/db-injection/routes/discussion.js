@@ -8,7 +8,7 @@ router.get("/", function (req, res) {
   res.redirect("/discussion");
 });
 
-router.get("/discussion", async function (req, res) {
+router.get("/discussion", async function (req, res) { 
   let filter = "";
 
   if (req.query.author) {
