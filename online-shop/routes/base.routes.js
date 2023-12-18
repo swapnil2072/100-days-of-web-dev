@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-router.get("/", function (res, req) {
+router.get("/", function (req, res) {
   res.redirect('/products')
 });
 
