@@ -1,5 +1,4 @@
 const Product = require("../models/product.model");
-const { get } = require("../routes/admin.routes");
 
 async function getProducts(req, res, next) {
   try {
@@ -9,7 +8,6 @@ async function getProducts(req, res, next) {
     next(error);
     return;
   }
-  res.render("admin/products/all-products");
 }
 
 function getNewProduct(req, res) {
@@ -17,7 +15,10 @@ function getNewProduct(req, res) {
 }
 
 async function createNewProduct(req, res, next) {
-  const product = new Product({ ...req.body, image: req.file.filename });
+  const product = new Product({
+    ...req.body,
+    image: req.file.filename,
+  });
 
   try {
     await product.save();
@@ -25,6 +26,7 @@ async function createNewProduct(req, res, next) {
     next(error);
     return;
   }
+
   res.redirect("/admin/products");
 }
 
@@ -37,12 +39,30 @@ async function getUpdateProduct(req, res, next) {
   }
 }
 
-function UpdateProduct() {}
+async function updateProduct(req, res, next) {
+  const product = new Product({
+    ...req.body,
+    _id: req.params.id,
+  });
+
+  if (req.file) {
+    product.replaceImage(req.file.filename);
+  }
+
+  try {
+    await product.save();
+  } catch (error) {
+    next(error);
+    return;
+  }
+
+  res.redirect("/admin/products");
+}
 
 module.exports = {
   getProducts: getProducts,
   getNewProduct: getNewProduct,
   createNewProduct: createNewProduct,
   getUpdateProduct: getUpdateProduct,
-  UpdateProduct: UpdateProduct,
+  updateProduct: updateProduct,
 };
