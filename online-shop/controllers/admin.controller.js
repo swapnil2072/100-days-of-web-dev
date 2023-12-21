@@ -1,4 +1,5 @@
 const Product = require("../models/product.model");
+const Order = require("../models/order.model");
 
 async function getProducts(req, res, next) {
   try {
@@ -62,12 +63,41 @@ async function updateProduct(req, res, next) {
 async function deleteProduct(req, res, next) {
   let product;
   try {
-    const product = await Product.findById(req.params.id);
+    product = await Product.findById(req.params.id);
     await product.remove();
   } catch (error) {
     return next(error);
   }
+
   res.json({ message: "Deleted product!" });
+}
+
+async function getOrders(req, res, next) {
+  try {
+    const orders = await Order.findAll();
+    res.render("admin/orders/admin-orders", {
+      orders: orders,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function updateOrder(req, res, next) {
+  const orderId = req.params.id;
+  const newStatus = req.body.newStatus;
+
+  try {
+    const order = await Order.findById(orderId);
+
+    order.status = newStatus;
+
+    await order.save();
+
+    res.json({ message: "Order updated", newStatus: newStatus });
+  } catch (error) {
+    next(error);
+  }
 }
 
 module.exports = {
@@ -77,4 +107,6 @@ module.exports = {
   getUpdateProduct: getUpdateProduct,
   updateProduct: updateProduct,
   deleteProduct: deleteProduct,
+  getOrders: getOrders,
+  updateOrder: updateOrder,
 };
